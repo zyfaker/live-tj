@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">到访记录</string>
+    <string name="login_title">欢迎光临</string>
+    <string name="addlogin_title">请补充完客户信息</string>
+    <string name="addsearch_title">序号查询结果</string>
+</resources>
