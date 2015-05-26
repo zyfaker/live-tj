@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -14,11 +15,8 @@ import jxl.write.biff.RowsExceededException;
 
 import com.chinasofti.diary.activity.R;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -26,46 +24,39 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-// 步骤1：继承父类Android.app.Activity
-@TargetApi(Build.VERSION_CODES.GINGERBREAD)
-@SuppressLint("NewApi")
-public class Search2Activity extends Activity {
+public class ShowThisMessActivity extends Activity {
+	private EditText sidthis, sdatethis, snamethis, sphonethis, sbelongthis,
+			sknowthis, sguwenthis, sbeizhuthis;
 
-	// 步骤4：声明该页面中的交互类组件
-	private EditText sid, sdate, sname, sphone, sbelong, sknow, sguwen,
-			sbeizhu;
-	private Button btnback1, btnback2, btnok;
-	
+	private Button btnbackhead, btnbacklogin, btnbackadd, btnperfect;
 
-	// 步骤2：重写父类中的一个方法OnCreate() Ctrl+Shift+S,V
-	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		// 扩展：隐藏该窗体的标题栏
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// 步骤3：将窗体与相应的布局文件进行绑定
-		this.setContentView(R.layout.search2_layout);
-		// 步骤5：实例化操作类组件
+		this.setContentView(R.layout.showthisadd_activity);
 
-		this.sid = (EditText) this.findViewById(R.id.sid);
-		this.sdate = (EditText) this.findViewById(R.id.sdate);
-		this.sname = (EditText) this.findViewById(R.id.sname);
-		this.sphone = (EditText) this.findViewById(R.id.sphone);
-		this.sbelong = (EditText) this.findViewById(R.id.sbelong);
-		this.sknow = (EditText) this.findViewById(R.id.sknow);
-		this.sguwen = (EditText) this.findViewById(R.id.sguwen);
-		this.sbeizhu = (EditText) this.findViewById(R.id.sbeizhu);
+		this.sidthis = (EditText) this.findViewById(R.id.sidthis);
+		this.sdatethis = (EditText) this.findViewById(R.id.sdatethis);
+		this.snamethis = (EditText) this.findViewById(R.id.snamethis);
+		this.sphonethis = (EditText) this.findViewById(R.id.sphonethis);
+		this.sbelongthis = (EditText) this.findViewById(R.id.sbelongthis);
+		this.sknowthis = (EditText) this.findViewById(R.id.sknowthis);
+		this.sguwenthis = (EditText) this.findViewById(R.id.sguwenthis);
+		this.sbeizhuthis = (EditText) this.findViewById(R.id.sbeizhuthis);
 
 		Intent intent = getIntent();
 
-		sid.setText(intent.getStringExtra("idnumber"));
-
-		System.out.println(intent.getStringExtra("idnumber"));
+		sdatethis.setText(intent.getStringExtra("sdateintent"));
+		snamethis.setText(intent.getStringExtra("snameintent"));
+		sphonethis.setText(intent.getStringExtra("sphoneintent"));
+		sbelongthis.setText(intent.getStringExtra("sbelongintent"));
+		sknowthis.setText(intent.getStringExtra("sknowintent"));
+		sguwenthis.setText(intent.getStringExtra("sguwenintent"));
+		sbeizhuthis.setText(intent.getStringExtra("sbeizhuintent"));
 		
-		//sid.setText("1");
 		Workbook readwb = null;
 		try {
 			readwb = Workbook.getWorkbook(new FileInputStream(
@@ -82,68 +73,50 @@ public class Search2Activity extends Activity {
 			e.printStackTrace();
 		}
 		Sheet readsheet = readwb.getSheet(0);
-		int row = Integer.parseInt(sid.getText().toString());
-
-		//int row=1;
-		Cell[] cells = readsheet.getRow(row);
-		// 然后再取每一个Cell中的值
-		String dates = cells[1].getContents();
-		String names = cells[2].getContents();
-		String phones = cells[3].getContents();
-		String belongs = cells[4].getContents();
-		String knows = cells[5].getContents();
-		String guwens = cells[6].getContents();
-		String beizhus = cells[9].getContents();
-
-		//System.out.println(dates+names+guwens);
-		
-		sdate.setText(dates);
-		sname.setText(names);
-		sphone.setText(phones);
-		sbelong.setText(belongs);
-		sknow.setText(knows);
-		sguwen.setText(guwens);
-		sbeizhu.setText(beizhus);
-		
-		//sbeizhu.setText("woshibeizhu");
-
+		int j = readsheet.getRows();
+		sidthis.setText(Integer.toString(j));
 		readwb.close();
 
-		this.btnback1 = (Button) this.findViewById(R.id.btnBack1);
-		this.btnback2 = (Button) this.findViewById(R.id.btnBack2);
-		this.btnok = (Button) this.findViewById(R.id.btnok);
+		this.btnbackhead = (Button) this.findViewById(R.id.btnBackhead);
+		this.btnbackadd = (Button) this.findViewById(R.id.btnBackadd);
+		this.btnbacklogin = (Button) this.findViewById(R.id.btnBacklogin);
+		this.btnperfect = (Button) this.findViewById(R.id.btnperfect);
 
 		// 步骤7：组件绑定监听器
-		this.btnback1.setOnClickListener(new ViewOcl());
-		this.btnback2.setOnClickListener(new ViewOcl());
-		this.btnok.setOnClickListener(new ViewOcl());
+		this.btnbackhead.setOnClickListener(new ViewOcl());
+		this.btnbackadd.setOnClickListener(new ViewOcl());
+		this.btnbacklogin.setOnClickListener(new ViewOcl());
+		this.btnperfect.setOnClickListener(new ViewOcl());
 	}
 
-	// 步骤6：创建一个自定义的内部类监听器Linstener
 	private class ViewOcl implements View.OnClickListener {
+		@SuppressWarnings("unused")
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent();
 			switch (v.getId()) {
-			case R.id.btnBack1:
+			case R.id.btnBackhead:
 
-				intent.setClass(Search2Activity.this, SelectActivity.class);
+				intent.setClass(ShowThisMessActivity.this, SelectActivity.class);
 				startActivity(intent);
 				finish();
 				break;
 
-			case R.id.btnBack2:
+			case R.id.btnBacklogin:
 
-				intent.setClass(Search2Activity.this, SelectMainActivity.class);
+				intent.setClass(ShowThisMessActivity.this, LoginActivity.class);
+				startActivity(intent);
+				finish();
+				break;
+			case R.id.btnBackadd:
+
+				intent.setClass(ShowThisMessActivity.this, AddActivity.class);
 				startActivity(intent);
 				finish();
 				break;
 
-			case R.id.btnok:
+			case R.id.btnperfect:
 
-				int row = Integer.parseInt(sid.getText().toString().trim());
-
-				//int row=1;
 				Workbook readwb = null;
 				WritableCellFormat cellFormat = new WritableCellFormat();
 				try {
@@ -168,6 +141,9 @@ public class Search2Activity extends Activity {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				Sheet readsheet = readwb.getSheet(0);
+
+				int j = readsheet.getRows();
 				// System.out.println("account="+account.length());
 				if (readwb != null) {
 					try {
@@ -180,37 +156,38 @@ public class Search2Activity extends Activity {
 
 						jxl.write.WritableSheet ws = wwb.getSheet(0);
 
-						
+						jxl.write.Label label = new jxl.write.Label(0, j,
+								Integer.toString(j));
+						jxl.write.Label label2 = new jxl.write.Label(1, j,
+								sdatethis.getText().toString().trim());
+						jxl.write.Label label3 = new jxl.write.Label(2, j,
+								snamethis.getText().toString().trim());
+						jxl.write.Label label4 = new jxl.write.Label(3, j,
+								sphonethis.getText().toString().trim());
+						jxl.write.Label label5 = new jxl.write.Label(4, j,
+								sbelongthis.getText().toString().trim());
+						jxl.write.Label label6 = new jxl.write.Label(5, j,
+								sknowthis.getText().toString().trim());
+						jxl.write.Label label7 = new jxl.write.Label(6, j,
+								sguwenthis.getText().toString().trim());
+						jxl.write.Label label8 = new jxl.write.Label(9, j,
+								sbeizhuthis.getText().toString().trim());
 
-						jxl.write.Label label1 = new jxl.write.Label(4, row,
-								sbelong.getText().toString().trim());
-						jxl.write.Label label2 = new jxl.write.Label(5, row,
-								sknow.getText().toString().trim());
-						jxl.write.Label label3 = new jxl.write.Label(6, row,
-								sguwen.getText().toString().trim());
-						jxl.write.Label label4 = new jxl.write.Label(9, row,
-								sbeizhu.getText().toString().trim());
-						
-						jxl.write.Label label5 = new jxl.write.Label(2, row,
-								sname.getText().toString().trim());
-
-						jxl.write.Label label6 = new jxl.write.Label(3, row,
-								sphone.getText().toString().trim());
-
-						label5.setCellFormat(cellFormat);
-						
+						label.setCellFormat(cellFormat);
+						label3.setCellFormat(cellFormat);
 						// 将定义好的单元格添加到工作表中
-						ws.addCell(label1);
+						ws.addCell(label);
 						ws.addCell(label2);
 						ws.addCell(label3);
 						ws.addCell(label4);
 						ws.addCell(label5);
 						ws.addCell(label6);
+						ws.addCell(label7);
+						ws.addCell(label8);
 
 						wwb.write();
 						wwb.close();
 						readwb.close();
-
 					} catch (RowsExceededException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -227,15 +204,15 @@ public class Search2Activity extends Activity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					intent.setClass(Search2Activity.this, SelectActivity.class);
+					intent.setClass(ShowThisMessActivity.this,
+							SelectActivity.class);
 					startActivity(intent);
 					finish();
-					// Toast.makeText(getApplicationContext(), account.length(),
-					// Toast.LENGTH_LONG).show();
 				} else {
 					Toast.makeText(getApplicationContext(), "修改出错",
 							Toast.LENGTH_LONG).show();
 				}
+
 				break;
 			default:
 				break;

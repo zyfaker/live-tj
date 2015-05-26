@@ -31,8 +31,11 @@
         <!-- 注册主窗体 -->
         <activity android:name="edu.nankai.VisitRecord.activity.AddActivity" />
         <activity android:name="edu.nankai.VisitRecord.activity.SearchActivity" />
+        <activity android:name="edu.nankai.VisitRecord.activity.SelectMainActivity" />
+         <activity android:name="edu.nankai.VisitRecord.activity.ShowThisMessActivity" />
         <activity android:name="edu.nankai.VisitRecord.activity.Search2Activity" />
         <activity android:name="edu.nankai.VisitRecord.activity.LoginActivity" />
+        <activity android:name="edu.nankai.VisitRecord.activity.ListReslutActivity" android:label="查询结果" />
     </application>
 
 </manifest>

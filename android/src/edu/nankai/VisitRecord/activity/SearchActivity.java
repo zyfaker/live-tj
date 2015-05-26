@@ -46,7 +46,7 @@ public class SearchActivity extends Activity {
 	}
 
 	// 步骤6：创建一个自定义的内部类监听器Linstener
-	private class ViewOcl implements View.OnClickListener {
+	public class ViewOcl implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
 			

@@ -49,7 +49,7 @@ public class SelectActivity extends Activity {
 			switch (v.getId()) {
 			case R.id.btnsearch:
 				
-				intent.setClass(SelectActivity.this, SearchActivity.class);
+				intent.setClass(SelectActivity.this, SelectMainActivity.class);
 				startActivity(intent);
 				finish();
 				break;

@@ -14,8 +14,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import edu.nankai.VisitRecord.classes.Users;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -72,11 +70,7 @@ public class LoginActivity extends Activity {
 			String account = userName.getText().toString().trim();
 			String phone = userPhone.getText().toString().trim();
 			Date now = new Date();
-			// 步骤1-2：对象封装
-			Users user = new Users();
-			user.setName(account);
-			user.setPhone(phone);
-			user.setDate(now);
+
 			Workbook readwb = null;
 			WritableCellFormat cellFormat = new WritableCellFormat();
 			try {
@@ -192,84 +186,40 @@ public class LoginActivity extends Activity {
 			Cell[] cells = readsheet.getColumn(3);
 			boolean nologin = true;
 			int j = readsheet.getRows();
-			//System.out.println(j+cells[1].getContents()+cells[2].getContents());
+			// System.out.println(j+cells[1].getContents()+cells[2].getContents());
 			int i = 1;
-			for (; i < j;) {
-				String userphone = userPhone.getText().toString().trim();
-				
-				System.out.println(j+cells[i].getContents());
-				
-				String cellphone = cells[i].getContents();
-				System.out.println(cellphone);
-				
-				if (userphone.equals(cellphone)) {
-					//System.out.println(userPhone.getText().toString().trim());
-					//System.out.println(phone.equals(cells[i].getContents()));
-					nologin = false;
-					break;
-				} else {
-					i++;
+			if (j > 1) {
+				for (; i < j;) {
+					String userphone = userPhone.getText().toString().trim();
+
+					//System.out.println(j + cells[i].getContents());
+
+					String cellphone = cells[i].getContents();
+	
+					if (userphone.equals(cellphone)) {
+						// System.out.println(userPhone.getText().toString().trim());
+						// System.out.println(phone.equals(cells[i].getContents()));
+						nologin = false;
+						break;
+					} else {
+						i++;
+					}
 				}
 			}
-			//System.out.println(nologin);
-			// System.out.println("account="+account.length());
 			if (readwb != null && nologin && account.length() != 0
-					&& user != null && !account.contains("女士")
-					&& !account.contains("先生") && !account.contains("小姐")
-					&& phone.length() == 11) {
-				try {
-
-					jxl.write.WritableWorkbook wwb = Workbook.createWorkbook(
-							new File(android.os.Environment
-									.getExternalStorageDirectory()
-									.getAbsolutePath()
-									+ "/visitrecord.xls"), readwb);
-
-					jxl.write.WritableSheet ws = wwb.getSheet(0);
-
-					jxl.write.Label label = new jxl.write.Label(0, j,
-							Integer.toString(j));
-					jxl.write.Label label2 = new jxl.write.Label(1, j,
-							new SimpleDateFormat("yyyy-MM-dd hh:mm:")
-									.format(user.getDate()));
-					jxl.write.Label label3 = new jxl.write.Label(2, j, userName
-							.getText().toString().trim());
-					jxl.write.Label label4 = new jxl.write.Label(3, j,
-							userPhone.getText().toString().trim());
-
-					label.setCellFormat(cellFormat);
-					label3.setCellFormat(cellFormat);
-					// 将定义好的单元格添加到工作表中
-					ws.addCell(label);
-					ws.addCell(label2);
-					ws.addCell(label3);
-					ws.addCell(label4);
-
-					wwb.write();
-					wwb.close();
-					readwb.close();
-
-				} catch (RowsExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IndexOutOfBoundsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (WriteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					&& !account.contains("女士") && !account.contains("先生")
+					&& !account.contains("小姐") && phone.length() == 11) {
 				Intent intent = new Intent();
 				intent.setClass(LoginActivity.this, AddActivity.class);
+				intent.putExtra("account", account);
+				intent.putExtra("phone", phone);
+				intent.putExtra("date", new SimpleDateFormat(
+						"yyyy-MM-dd hh:mm:").format(now));
+//				Toast.makeText(getApplicationContext(),account+phone+new SimpleDateFormat(
+//						"yyyy-MM-dd hh:mm:").format(now),
+//						Toast.LENGTH_LONG).show();
 				startActivity(intent);
-				// Toast.makeText(getApplicationContext(), account.length(),
-				// Toast.LENGTH_LONG).show();
+				finish();
 			} else if (phone.length() == 0 || account.length() == 0) {
 				Toast.makeText(getApplicationContext(), "请输入必要信息",
 						Toast.LENGTH_LONG).show();
