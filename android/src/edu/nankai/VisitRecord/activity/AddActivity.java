@@ -1,12 +1,7 @@
 package edu.nankai.VisitRecord.activity;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 import com.chinasofti.diary.activity.R;
 
-import jxl.Sheet;
-import jxl.Workbook;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,8 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import edu.nankai.VisitRecord.classes.Users;
 
 // ≤Ω÷Ë1£∫ºÃ≥–∏∏¿‡Android.app.Activity
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)

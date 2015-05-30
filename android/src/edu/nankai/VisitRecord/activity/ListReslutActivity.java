@@ -1,12 +1,23 @@
 package edu.nankai.VisitRecord.activity;
 
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-import com.chinasofti.diary.activity.R;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
+import com.chinasofti.diary.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import edu.nankai.VisitRecord.internet.WebAccessUtils;
+import edu.nankai.VisitRecord.po.Client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +32,7 @@ public class ListReslutActivity extends Activity {
 	// 步骤1：声明集合对象以及ListView组件对象
 	private List<Map<String, ?>> lstData;
 	private ListView lstMessages;
+	private String namelist,phonelist,datelist,belonglist,guwenlist,knowlist,beizhulist;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +55,86 @@ public class ListReslutActivity extends Activity {
 		this.lstMessages.setOnItemLongClickListener(new ItemLongOcl());
 	}
 	 // 步骤4：自定义一个获取列表数据的方法
+//	 private List<Map<String, ?>> fetchData() {
+//	 // TODO Auto-generated method stub
+//	 // 步骤4-1：创建一个空集合对象
+//	 List<Map<String, ?>> lst = new ArrayList<Map<String, ?>>();
+//	 
+//	 String response = WebAccessUtils.httpRequest("SelectByNameServlet");
+//	 // 步骤4-2：创建一个列表中选项对象并实例化
+//	 Map<String, Object> item01 = new HashMap<String, Object>();
+//	 item01.put("mid", 1);
+//	 item01.put("name", "张三");
+//	 item01.put("date", "2014-08-21 10:08");
+//	
+//	 Map<String, Object> item02 = new HashMap<String, Object>();
+//	 item02.put("mid", 2);
+//	 item02.put("name", "李四");
+//	 item02.put("date", "2014-08-21 10:09");
+//	 lst.add(item01);
+//	 lst.add(item02);
+//	 return lst;
+//	 }
 	 private List<Map<String, ?>> fetchData() {
-	 // TODO Auto-generated method stub
-	 // 步骤4-1：创建一个空集合对象
-	 List<Map<String, ?>> lst = new ArrayList<Map<String, ?>>();
-	 // 步骤4-2：创建一个列表中选项对象并实例化
-	 Map<String, Object> item01 = new HashMap<String, Object>();
-	 item01.put("mid", 1);
-	 item01.put("name", "张三");
-	 item01.put("date", "2014-08-21 10:08");
-	
-	 Map<String, Object> item02 = new HashMap<String, Object>();
-	 item02.put("mid", 2);
-	 item02.put("name", "李四");
-	 item02.put("date", "2014-08-21 10:09");
-	 lst.add(item01);
-	 lst.add(item02);
-	 return lst;
-	 }
+			// TODO Auto-generated method stub
+			// 步骤4-1：创建一个空集合对象
+			List<Map<String, ?>> lst = new ArrayList<Map<String, ?>>();
+			
+			Intent intent = getIntent();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm").create();
+			List<NameValuePair> lstNameValuePairs = new ArrayList<NameValuePair>();
+			
+			String response = "";
+		if (intent.getStringExtra("selectname1") != null) {
+			String clientname = gson.toJson(intent
+					.getStringExtra("selectname1"));
+			lstNameValuePairs.add(new BasicNameValuePair("clientName",
+					clientname));
+			// 步骤4-2：调用方法实现对网络服务的请求
+			response = WebAccessUtils.httpRequest("SelectByNameServlet",
+					lstNameValuePairs);
+		} else if (intent.getStringExtra("selectdate") != null) {
+			String selectdate = gson
+					.toJson(intent.getStringExtra("selectdate"));
+			lstNameValuePairs.add(new BasicNameValuePair("date", selectdate));
+			// 步骤4-2：调用方法实现对网络服务的请求
+			response = WebAccessUtils.httpRequest("SelectByDateServlet",
+					lstNameValuePairs);
+		}
+
+			
+
+//			System.out.println("--------------");
+			Gson gsonget = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm").create();
+			// 步骤4-3：设置一个全新的类型Type
+			Type ListClients= new TypeToken<ArrayList<Client>>() {
+			}.getType();
+
+			//System.out.println(intent.getStringExtra(response));
+			// 步骤4-5：解析JSon数据
+			List<Client> lstClient = gsonget.fromJson(response, ListClients);
+			
+			
+			// 步骤4-6：使用循环遍历集合对象
+			for (Client client : lstClient) {
+				Map<String, Object> item = new HashMap<String, Object>();
+				item.put("mid", client.getId());
+				item.put("name", client.getName());
+				item.put("date", new SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.CHINA).format(client.getDate()));
+				// 步骤4-7：将创建好的选项对象添加到集合中
+
+				namelist=client.getName();
+				datelist=new SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.CHINA).format(client.getDate());
+				belonglist=client.getTeambelong();
+				beizhulist=client.getRemark();
+				guwenlist=client.getCounselor();
+				knowlist=client.getKownway();
+				phonelist=client.getPhone();
+				
+				lst.add(item);			
+			}		
+			return lst;
+		}
 	
 
 	private class ItemOcl implements AdapterView.OnItemClickListener {
@@ -79,6 +153,14 @@ public class ListReslutActivity extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(ListReslutActivity.this, Search2Activity.class);
 			intent.putExtra("idnumber", selectedItem.get("mid").toString());
+			intent.putExtra("name", namelist);
+			intent.putExtra("phone", phonelist);
+			intent.putExtra("date", datelist);
+			intent.putExtra("belonglist", belonglist);
+			intent.putExtra("beizhulist", beizhulist);
+			intent.putExtra("guwenlist", guwenlist);
+			intent.putExtra("knowlist", knowlist);
+			
 			startActivity(intent);
 		}
 

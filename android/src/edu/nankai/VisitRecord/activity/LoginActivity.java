@@ -214,7 +214,7 @@ public class LoginActivity extends Activity {
 				intent.putExtra("account", account);
 				intent.putExtra("phone", phone);
 				intent.putExtra("date", new SimpleDateFormat(
-						"yyyy-MM-dd hh:mm:").format(now));
+						"yyyy-MM-dd HH:mm").format(now));
 //				Toast.makeText(getApplicationContext(),account+phone+new SimpleDateFormat(
 //						"yyyy-MM-dd hh:mm:").format(now),
 //						Toast.LENGTH_LONG).show();

@@ -4,28 +4,38 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import jxl.Cell;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.WritableCellFormat;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-
 import com.chinasofti.diary.activity.R;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import edu.nankai.VisitRecord.internet.WebAccessUtils;
+import edu.nankai.VisitRecord.po.Client;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.ParseException;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShowThisMessActivity extends Activity {
-	private EditText sidthis, sdatethis, snamethis, sphonethis, sbelongthis,
+	private TextView sidthis, sdatethis, snamethis, sphonethis, sbelongthis,
 			sknowthis, sguwenthis, sbeizhuthis;
 
 	private Button btnbackhead, btnbacklogin, btnbackadd, btnperfect;
@@ -38,14 +48,14 @@ public class ShowThisMessActivity extends Activity {
 		// 步骤3：将窗体与相应的布局文件进行绑定
 		this.setContentView(R.layout.showthisadd_activity);
 
-		this.sidthis = (EditText) this.findViewById(R.id.sidthis);
-		this.sdatethis = (EditText) this.findViewById(R.id.sdatethis);
-		this.snamethis = (EditText) this.findViewById(R.id.snamethis);
-		this.sphonethis = (EditText) this.findViewById(R.id.sphonethis);
-		this.sbelongthis = (EditText) this.findViewById(R.id.sbelongthis);
-		this.sknowthis = (EditText) this.findViewById(R.id.sknowthis);
-		this.sguwenthis = (EditText) this.findViewById(R.id.sguwenthis);
-		this.sbeizhuthis = (EditText) this.findViewById(R.id.sbeizhuthis);
+		this.sidthis = (TextView) this.findViewById(R.id.sidthis);
+		this.sdatethis = (TextView) this.findViewById(R.id.sdatethis);
+		this.snamethis = (TextView) this.findViewById(R.id.snamethis);
+		this.sphonethis = (TextView) this.findViewById(R.id.sphonethis);
+		this.sbelongthis = (TextView) this.findViewById(R.id.sbelongthis);
+		this.sknowthis = (TextView) this.findViewById(R.id.sknowthis);
+		this.sguwenthis = (TextView) this.findViewById(R.id.sguwenthis);
+		this.sbeizhuthis = (TextView) this.findViewById(R.id.sbeizhuthis);
 
 		Intent intent = getIntent();
 
@@ -90,6 +100,7 @@ public class ShowThisMessActivity extends Activity {
 	}
 
 	private class ViewOcl implements View.OnClickListener {
+		@SuppressLint("SimpleDateFormat")
 		@SuppressWarnings("unused")
 		@Override
 		public void onClick(View v) {
@@ -97,7 +108,7 @@ public class ShowThisMessActivity extends Activity {
 			switch (v.getId()) {
 			case R.id.btnBackhead:
 
-				intent.setClass(ShowThisMessActivity.this, SelectActivity.class);
+				intent.setClass(ShowThisMessActivity.this, MainActivity.class);
 				startActivity(intent);
 				finish();
 				break;
@@ -204,13 +215,74 @@ public class ShowThisMessActivity extends Activity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					intent.setClass(ShowThisMessActivity.this,
-							SelectActivity.class);
-					startActivity(intent);
-					finish();
+					
 				} else {
 					Toast.makeText(getApplicationContext(), "修改出错",
 							Toast.LENGTH_LONG).show();
+				}
+				
+				// 步骤1：获取数据并封装对象，将对象进行序列化（JSON）
+				// 步骤1-1：获取账号和密码
+				String date = sdatethis.getText().toString().trim();
+				String name = snamethis.getText().toString().trim();
+				String phone = sphonethis.getText().toString().trim();
+				String belong = sbelongthis.getText().toString().trim();
+				String guwen= sguwenthis.getText().toString().trim();
+				String know = sknowthis.getText().toString().trim();
+				String beizhu = sbeizhuthis.getText().toString().trim();
+				// 步骤1-2：对象封装
+				
+				Client client=new Client();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				
+				
+				Date d = new Date();
+				try {
+					d = sdf.parse(date);
+					System.out.println(d);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (java.text.ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				client.setDate(d);
+				client.setName(name);
+				client.setPhone(phone);
+				client.setCounselor(guwen);
+				client.setKownway(know);
+				client.setRemark(beizhu);
+				client.setTeambelong(belong);
+				// 步骤1-3：序列化
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm").create();
+				String client_data = gson.toJson(client);
+				
+				// 步骤2：设置请求参数集合并调用方法向网络发送请求数据			
+				
+				// 步骤2-1：创建一个参数集合
+				List<NameValuePair> lstNameValuePairs = new ArrayList<NameValuePair>();
+				lstNameValuePairs.add(new BasicNameValuePair("client_data", client_data));
+				
+				// 步骤2-2：调用方式实现请求的发送
+				String response = WebAccessUtils.httpRequest("AddServlet", lstNameValuePairs);				
+				
+				// 步骤3：处理JSON数据
+				// 步骤3-1：反序列化数据封装成一个对象
+				// 步骤4-3：设置一个全新的类型Type
+				Type Result= new TypeToken<Boolean>() {
+				}.getType();
+
+				// 步骤4-5：解析JSon数据
+				boolean res = gson.fromJson(response, Result);
+				if(res){
+					intent.setClass(ShowThisMessActivity.this,
+							MainActivity.class);
+					startActivity(intent);
+					finish();
+				}else{
+					Toast.makeText(getApplicationContext(), "账号或密码错误!", Toast.LENGTH_LONG).show();
 				}
 
 				break;

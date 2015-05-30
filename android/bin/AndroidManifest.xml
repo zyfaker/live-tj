@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme" >
 
         <!-- 注册一个窗体，并设置其为首启动窗体 -->
-        <activity android:name="edu.nankai.VisitRecord.activity.SelectActivity" >
+        <activity android:name="edu.nankai.VisitRecord.activity.MainActivity" >
 
             <!-- 通过Intent过滤器设置其为首启动窗体 -->
             <intent-filter>
@@ -30,12 +30,15 @@
 
         <!-- 注册主窗体 -->
         <activity android:name="edu.nankai.VisitRecord.activity.AddActivity" />
-        <activity android:name="edu.nankai.VisitRecord.activity.SearchActivity" />
         <activity android:name="edu.nankai.VisitRecord.activity.SelectMainActivity" />
-         <activity android:name="edu.nankai.VisitRecord.activity.ShowThisMessActivity" />
+        <activity android:name="edu.nankai.VisitRecord.activity.FirstPagActivity" />
+        <activity android:name="edu.nankai.VisitRecord.activity.MoreActivity" />
+        <activity android:name="edu.nankai.VisitRecord.activity.ShowThisMessActivity" />
         <activity android:name="edu.nankai.VisitRecord.activity.Search2Activity" />
         <activity android:name="edu.nankai.VisitRecord.activity.LoginActivity" />
-        <activity android:name="edu.nankai.VisitRecord.activity.ListReslutActivity" android:label="查询结果" />
+        <activity
+            android:name="edu.nankai.VisitRecord.activity.ListReslutActivity"
+            android:label="查询结果" />
     </application>
 
 </manifest>

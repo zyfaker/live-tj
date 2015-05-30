@@ -55,7 +55,7 @@
 
                 <!-- 添加一个编辑文本框 -->
 
-                <EditText
+                <TextView
                     android:id="@+id/sid"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
@@ -83,7 +83,7 @@
 
                 <!-- 添加一个编辑文本框 -->
 
-                <EditText
+                <TextView
                     android:id="@+id/sdate"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
@@ -111,7 +111,7 @@
 
                 <!-- 添加一个编辑文本框 -->
 
-                <EditText
+                <TextView
                     android:id="@+id/sname"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
