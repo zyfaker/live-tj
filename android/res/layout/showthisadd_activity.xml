@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- 界面外围的的整体布局风格 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -288,17 +288,6 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_login_bg"
                 android:text="客户重填"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btnBackadd"
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_login_bg"
-                android:text="员工重填"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
 

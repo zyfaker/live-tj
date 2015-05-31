@@ -39,7 +39,6 @@ public final class R {
         public static final int belong=0x7f060008;
         public static final int btnBack1=0x7f06002f;
         public static final int btnBack2=0x7f060030;
-        public static final int btnBackadd=0x7f06004f;
         public static final int btnBackhead=0x7f06004d;
         public static final int btnBacklogin=0x7f06004e;
         public static final int btnLogin=0x7f060005;
@@ -48,7 +47,7 @@ public final class R {
         public static final int btnSelectByname=0x7f060038;
         public static final int btnfinish=0x7f06000f;
         public static final int btnok=0x7f060031;
-        public static final int btnperfect=0x7f060050;
+        public static final int btnperfect=0x7f06004f;
         public static final int btnsearch=0x7f060012;
         public static final int btnselectDay=0x7f06003b;
         public static final int btnselectToday=0x7f06003c;

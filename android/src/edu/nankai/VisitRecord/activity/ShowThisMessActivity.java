@@ -38,7 +38,7 @@ public class ShowThisMessActivity extends Activity {
 	private TextView sidthis, sdatethis, snamethis, sphonethis, sbelongthis,
 			sknowthis, sguwenthis, sbeizhuthis;
 
-	private Button btnbackhead, btnbacklogin, btnbackadd, btnperfect;
+	private Button btnbackhead, btnbacklogin, btnperfect;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +88,11 @@ public class ShowThisMessActivity extends Activity {
 		readwb.close();
 
 		this.btnbackhead = (Button) this.findViewById(R.id.btnBackhead);
-		this.btnbackadd = (Button) this.findViewById(R.id.btnBackadd);
 		this.btnbacklogin = (Button) this.findViewById(R.id.btnBacklogin);
 		this.btnperfect = (Button) this.findViewById(R.id.btnperfect);
 
 		// 步骤7：组件绑定监听器
 		this.btnbackhead.setOnClickListener(new ViewOcl());
-		this.btnbackadd.setOnClickListener(new ViewOcl());
 		this.btnbacklogin.setOnClickListener(new ViewOcl());
 		this.btnperfect.setOnClickListener(new ViewOcl());
 	}
@@ -116,12 +114,6 @@ public class ShowThisMessActivity extends Activity {
 			case R.id.btnBacklogin:
 
 				intent.setClass(ShowThisMessActivity.this, LoginActivity.class);
-				startActivity(intent);
-				finish();
-				break;
-			case R.id.btnBackadd:
-
-				intent.setClass(ShowThisMessActivity.this, AddActivity.class);
 				startActivity(intent);
 				finish();
 				break;
