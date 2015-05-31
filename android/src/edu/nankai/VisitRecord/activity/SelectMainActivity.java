@@ -1,6 +1,8 @@
 package edu.nankai.VisitRecord.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.chinasofti.diary.activity.R;
 
@@ -19,11 +21,9 @@ import android.widget.EditText;
 public class SelectMainActivity extends Activity {
 
 	private EditText selectname, selectdate;
-	private Button selectByname, selectBydate, selectBytoday;
+	private Button selectByname, selectBydate, selectBytoday, selectDay;
 	DatePickerDialog datePickerDialog = null;
 	static final int SHOW_DATE_PICKER_DIALOG = 1;
-
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,13 @@ public class SelectMainActivity extends Activity {
 
 		this.selectBydate = (Button) this.findViewById(R.id.btnSelectBydate);
 		this.selectBytoday = (Button) this.findViewById(R.id.btnselectToday);
+		this.selectDay = (Button) this.findViewById(R.id.btnselectDay);
 
 		// 步骤7：组件绑定监听器
 		this.selectBydate.setOnClickListener(new ViewOcl());
 		this.selectByname.setOnClickListener(new ViewOcl());
 		this.selectBytoday.setOnClickListener(new ViewOcl());
+		this.selectDay.setOnClickListener(new ViewOcl());
 	}
 
 	private class ViewOcl implements View.OnClickListener {
@@ -68,39 +70,39 @@ public class SelectMainActivity extends Activity {
 
 			case R.id.btnSelectBydate:
 
-				 String selectdate1=selectdate.getText().toString().trim();
-				 intent.setClass(SelectMainActivity.this,
-				 ListReslutActivity.class);
-				 intent.putExtra("selectdate", selectdate1);
-				 System.out.println(selectdate1);
-				 startActivity(intent);
-				 finish();
+				String selectdate1 = selectdate.getText().toString().trim();
+				intent.setClass(SelectMainActivity.this,
+						ListReslutActivity.class);
+				intent.putExtra("selectdate", selectdate1);
+				System.out.println(selectdate1);
+				startActivity(intent);
+				finish();
 				// Toast.makeText(getApplicationContext(), selectdate1,
 				// Toast.LENGTH_LONG).show();
 				// DatePickerFragment datePicker = new DatePickerFragment();
 				// datePicker.show(getFragmentManager(), "datePicker");
-				
-//				String selectdate1 = selectdate.getText().toString().trim();
-//				intent.setClass(SelectMainActivity.this,
-//						ListReslutActivity.class);
-//				intent.putExtra("selectname1", selectdate1);
-//				startActivity(intent);
-//				finish();
-				
 
+				// String selectdate1 = selectdate.getText().toString().trim();
+				// intent.setClass(SelectMainActivity.this,
+				// ListReslutActivity.class);
+				// intent.putExtra("selectname1", selectdate1);
+				// startActivity(intent);
+				// finish();
+
+				break;
+			case R.id.btnselectDay:
+				showDialog(SHOW_DATE_PICKER_DIALOG);
 				break;
 			case R.id.btnselectToday:
 
-//				Date now = new Date();
-//
-//				intent.setClass(SelectMainActivity.this,
-//						ListReslutActivity.class);
-//				startActivity(intent);
-//				finish();
-//				Toast.makeText(getApplicationContext(),
-//						new SimpleDateFormat("yyyy-MM-dd").format(now),
-//						Toast.LENGTH_LONG).show();
-				showDialog(SHOW_DATE_PICKER_DIALOG);
+				Date now = new Date();
+
+				intent.setClass(SelectMainActivity.this,
+						ListReslutActivity.class);
+				intent.putExtra("selectToday", new SimpleDateFormat(
+						"yyyy-MM-dd").format(now));
+				startActivity(intent);
+				finish();
 				break;
 			default:
 				break;
@@ -114,22 +116,23 @@ public class SelectMainActivity extends Activity {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
-			selectdate.setText(year + "-" + (monthOfYear+1) + "-" + dayOfMonth);
+			selectdate.setText(year + "-" + (monthOfYear + 1) + "-"
+					+ dayOfMonth);
 
 		}
 	};
 
 	protected Dialog onCreateDialog(int id, Bundle args) {
-		
-		Calendar now= Calendar.getInstance();  
-	
-		int year=now.get(Calendar.YEAR);  
-	 
-		int monthOfYear=now.get(Calendar.MONTH);  
-	
-		int dayOfMonth= now.get(Calendar.DAY_OF_MONTH);  
 
-		System.out.println(year + "-" + (monthOfYear+1) + "-" + dayOfMonth);
+		Calendar now = Calendar.getInstance();
+
+		int year = now.get(Calendar.YEAR);
+
+		int monthOfYear = now.get(Calendar.MONTH);
+
+		int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
+
+		//System.out.println(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 		// TODO Auto-generated method stub
 		if (id == SHOW_DATE_PICKER_DIALOG) {
 			return new DatePickerDialog(this, onDateSetListener, year,

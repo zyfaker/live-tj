@@ -7,7 +7,8 @@
     <ListView
         android:id="@+id/listmain"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+        android:padding="10dp">
     </ListView>
         
 

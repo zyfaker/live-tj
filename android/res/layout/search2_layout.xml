@@ -16,7 +16,7 @@
         android:gravity="center_horizontal"
         android:text="@string/addsearch_title"
         android:textColor="#b88756"
-        android:textSize="25sp" />
+        android:textSize="22sp" />
 
     <!-- 添加一个LinearLyou布局组件 -->
 
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="编号："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -59,8 +59,7 @@
                     android:id="@+id/sid"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
-                    android:inputType="text"
+                    android:gravity="center_vertical"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
             </TableRow>
@@ -78,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="日期："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -87,8 +86,7 @@
                     android:id="@+id/sdate"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
-                    android:inputType="text"
+                    android:gravity="center_vertical"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
             </TableRow>
@@ -106,12 +104,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="姓名："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
 
-                <TextView
+                <EditText
                     android:id="@+id/sname"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
@@ -134,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="联系方式："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -144,7 +142,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
                     android:background="@drawable/txt_style"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
             </TableRow>
@@ -162,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="拓客组归属："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -190,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="获知途径："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -218,7 +216,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="置业顾问："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -246,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="备注："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->

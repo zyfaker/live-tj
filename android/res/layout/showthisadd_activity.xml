@@ -3,7 +3,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:padding="10dp" >
 
     <!-- 添加一个TextView文本组件标签 -->
@@ -50,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="编号："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -59,7 +58,7 @@
                     android:id="@+id/sidthis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -78,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="日期："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -87,7 +86,7 @@
                     android:id="@+id/sdatethis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -106,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="姓名："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -115,7 +114,7 @@
                     android:id="@+id/snamethis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -134,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="联系方式："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -143,7 +142,7 @@
                     android:id="@+id/sphonethis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -162,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="拓客组归属："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -171,7 +170,7 @@
                     android:id="@+id/sbelongthis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -190,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="获知途径："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -199,7 +198,7 @@
                     android:id="@+id/sknowthis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -218,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="置业顾问："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -227,7 +226,7 @@
                     android:id="@+id/sguwenthis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -246,7 +245,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="备注："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="15sp" />
 
                 <!-- 添加一个编辑文本框 -->
@@ -255,7 +254,7 @@
                     android:id="@+id/sbeizhuthis"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/txt_style"
+                    android:gravity="center_vertical"
                     android:inputType="text"
                     android:paddingLeft="8dp"
                     android:textSize="15sp" />
@@ -274,33 +273,34 @@
                 android:id="@+id/btnBackhead"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_login_bg"
                 android:text="返回首页"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" 
-                android:layout_marginRight="10dp"/>
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnBacklogin"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_login_bg"
                 android:text="客户重填"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" 
-                android:layout_marginRight="10dp"/>
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/btnBackadd"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_login_bg"
                 android:text="员工重填"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" 
-                android:layout_marginRight="10dp"/>
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnperfect"
@@ -310,7 +310,7 @@
                 android:background="@drawable/btn_login_bg"
                 android:text="添加完成"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 

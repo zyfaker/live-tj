@@ -4,5 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <TextView 
+        android:id="@+id/txtTitle3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/more_title"
+        android:textSize="40sp"
+        android:textColor="#bb8736"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp"/>
+    
 
 </LinearLayout>

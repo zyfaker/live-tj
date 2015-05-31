@@ -10,7 +10,7 @@
         android:id="@+id/txtTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_title"
+        android:text="@string/add_title"
         android:textSize="30sp"
         android:textColor="#bb8736"
         android:gravity="center_horizontal"
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="姓名："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="20sp" />
                 
                 <!-- 添加一个编辑文本框 -->
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="电话："
-                    android:textColor="#E6E6FA"
+                    android:textColor="#E616FA"
                     android:textSize="20sp" />
                 
                 <!-- 添加一个编辑文本框 -->
