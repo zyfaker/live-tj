@@ -21,7 +21,7 @@ public class WebAccessUtils {
 	// 方法1：自定义一个不带参数的请求响应方法
 	public static String httpRequest(final String webServiceName){
 		String uri = URI + webServiceName;
-		System.out.println("URI:>" + uri);
+		//System.out.println("URI:>" + uri);
 		HttpPost httpPostRequest = new HttpPost(uri);
 		try {
 			HttpResponse httpResponse = new DefaultHttpClient().execute(httpPostRequest);

@@ -6,9 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -36,7 +34,6 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.ParseException;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -83,7 +80,7 @@ public class Search2Activity extends Activity {
 		sid.setText(intent.getStringExtra("idnumber"));
 		sdate.setText(intent.getStringExtra("date"));
 		sname.setText(intent.getStringExtra("name"));
-		sphone.setText(intent.getStringExtra("phonelist"));
+		sphone.setText(intent.getStringExtra("phone"));
 		sbelong.setText(intent.getStringExtra("belonglist"));
 		sknow.setText(intent.getStringExtra("knowlist"));
 		sguwen.setText(intent.getStringExtra("guwenlist"));
@@ -133,22 +130,22 @@ public class Search2Activity extends Activity {
 				// 步骤1-2：对象封装
 
 				Client client = new Client();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-				Date d = new Date();
-				try {
-					d = sdf.parse(date);
-					System.out.println(d);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (java.text.ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//
+//				Date d = new Date();
+//				try {
+//					d = sdf.parse(date);
+//					System.out.println(d);
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (java.text.ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 
 				client.setId(Integer.parseInt(id));
-				client.setDate(d);
+				client.setDate(date);
 				client.setName(name);
 				client.setPhone(phone);
 				client.setCounselor(guwen);

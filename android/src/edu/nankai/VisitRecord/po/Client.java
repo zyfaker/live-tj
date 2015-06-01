@@ -1,14 +1,12 @@
 package edu.nankai.VisitRecord.po;
 
-import java.util.Date;
-
 public class Client {
 	private int id;
 	private int order;
 	private String name;
 	private String phone;
 	private String gender;
-	private Date   date;
+	private String  date;
 	private String teambelong;
 	private String kownway;
 	private String counselor;
@@ -44,10 +42,10 @@ public class Client {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getTeambelong() {
@@ -78,7 +76,7 @@ public class Client {
 		super();
 	}
 	public Client(int id, int order, String name, String phone, String gender,
-			Date date, String teambelong, String kownway, String counselor,
+			String date, String teambelong, String kownway, String counselor,
 			String remark) {
 		super();
 		this.id = id;

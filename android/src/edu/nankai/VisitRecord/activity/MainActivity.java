@@ -151,10 +151,10 @@ public class MainActivity extends ActivityGroup {
 				mTab1.setImageDrawable(getResources().getDrawable(R.drawable.home2));
 				if (currIndex == 1) {
 					animation = new TranslateAnimation(one, 0, 0, 0);
-					mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc1));
+					mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc2));
 				} else if (currIndex == 2) {
 					animation = new TranslateAnimation(two, 0, 0, 0);
-					mTab3.setImageDrawable(getResources().getDrawable(R.drawable.pencil1));
+					mTab3.setImageDrawable(getResources().getDrawable(R.drawable.action_search));
 				}
 				else if (currIndex == 3) {
 					animation = new TranslateAnimation(three, 0, 0, 0);
@@ -162,13 +162,13 @@ public class MainActivity extends ActivityGroup {
 				}
 				break;
 			case 1:
-				mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc2));
+				mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc1));
 				if (currIndex == 0) {
 					animation = new TranslateAnimation(zero, one, 0, 0);
 					mTab1.setImageDrawable(getResources().getDrawable(R.drawable.home1));
 				} else if (currIndex == 2) {
 					animation = new TranslateAnimation(two, one, 0, 0);
-					mTab3.setImageDrawable(getResources().getDrawable(R.drawable.pencil1));
+					mTab3.setImageDrawable(getResources().getDrawable(R.drawable.action_search));
 				}
 				else if (currIndex == 3) {
 					animation = new TranslateAnimation(three, one, 0, 0);
@@ -176,13 +176,13 @@ public class MainActivity extends ActivityGroup {
 				}
 				break;
 			case 2:
-				mTab3.setImageDrawable(getResources().getDrawable(R.drawable.pencil2));
+				mTab3.setImageDrawable(getResources().getDrawable(R.drawable.action2_search));
 				if (currIndex == 0) {
 					animation = new TranslateAnimation(zero, two, 0, 0);
 					mTab1.setImageDrawable(getResources().getDrawable(R.drawable.home1));
 				} else if (currIndex == 1) {
 					animation = new TranslateAnimation(one, two, 0, 0);
-					mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc1));
+					mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc2));
 				}
 				else if (currIndex == 3) {
 					animation = new TranslateAnimation(three, two, 0, 0);
@@ -196,11 +196,11 @@ public class MainActivity extends ActivityGroup {
 					mTab1.setImageDrawable(getResources().getDrawable(R.drawable.home1));
 				} else if (currIndex == 1) {
 					animation = new TranslateAnimation(one, three, 0, 0);
-					mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc1));
+					mTab2.setImageDrawable(getResources().getDrawable(R.drawable.doc2));
 				}
 				else if (currIndex == 2) {
 					animation = new TranslateAnimation(two, three, 0, 0);
-					mTab3.setImageDrawable(getResources().getDrawable(R.drawable.pencil1));
+					mTab3.setImageDrawable(getResources().getDrawable(R.drawable.action_search));
 				}
 				break;
 			}

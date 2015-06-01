@@ -5,9 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -26,7 +24,6 @@ import edu.nankai.VisitRecord.po.Client;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.ParseException;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -132,21 +129,21 @@ public class ShowThisMessActivity extends Activity {
 				// 步骤1-2：对象封装
 
 				Client client = new Client();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//
+//				Date d = new Date();
+//				try {
+//					d = sdf.parse(date);
+//					System.out.println(d);
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (java.text.ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 
-				Date d = new Date();
-				try {
-					d = sdf.parse(date);
-					System.out.println(d);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (java.text.ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				client.setDate(d);
+				client.setDate(date);
 				client.setName(name);
 				client.setPhone(phone);
 				client.setCounselor(guwen);

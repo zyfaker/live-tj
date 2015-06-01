@@ -63,7 +63,7 @@
         			android:layout_height="wrap_content"        	     	
         			android:scaleType="matrix"
         			android:clickable="true"
-        			android:src="@drawable/pencil1" />
+        			android:src="@drawable/doc2" />
                 <TextView
             		android:layout_width="wrap_content"
             		android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
         			android:layout_height="wrap_content"        	     	
         			android:scaleType="matrix"
         			android:clickable="true"
-        			android:src="@drawable/doc1" />
+        			android:src="@drawable/action_search" />
                 <TextView
             		android:layout_width="wrap_content"
             		android:layout_height="wrap_content"

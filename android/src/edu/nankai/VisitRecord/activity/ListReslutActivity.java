@@ -19,10 +19,8 @@ import com.google.gson.reflect.TypeToken;
 import edu.nankai.VisitRecord.internet.WebAccessUtils;
 import edu.nankai.VisitRecord.po.Client;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -70,19 +68,21 @@ public class ListReslutActivity extends Activity {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm")
 				.create();
 		List<NameValuePair> lstNameValuePairs = new ArrayList<NameValuePair>();
-
+		System.out.println("--------");
 		String response = "";
 		if (intent.getStringExtra("selectname1") != null) {
 			String clientname = gson.toJson(intent
 					.getStringExtra("selectname1"));
 			lstNameValuePairs.add(new BasicNameValuePair("clientName",
 					clientname));
+			System.out.println(intent.getStringExtra("selectname1"));
 			// 步骤4-2：调用方法实现对网络服务的请求
 			response = WebAccessUtils.httpRequest("SelectByNameServlet",
 					lstNameValuePairs);
 		} else if (intent.getStringExtra("selectdate") != null) {
 			String selectdate = gson
 					.toJson(intent.getStringExtra("selectdate"));
+			System.out.println(intent.getStringExtra("selectdate"));
 			lstNameValuePairs.add(new BasicNameValuePair("date", selectdate));
 			// 步骤4-2：调用方法实现对网络服务的请求
 			response = WebAccessUtils.httpRequest("SelectByDateServlet",
@@ -95,24 +95,11 @@ public class ListReslutActivity extends Activity {
 			response = WebAccessUtils.httpRequest("SelectByDateServlet",
 					lstNameValuePairs);
 		}
-		//progressDialog = ProgressDialog.show(ListReslutActivity.this, "请稍等...", "获取数据中...", true);
-
-		// System.out.println("--------------");
+		
 		Gson gsonget = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm")
 				.create();
 		
-//		 new Thread(new Runnable(){
-//			   
-//
-//			    @Override
-//			    public void run() {
-//			    // TODO Auto-generated method stub
-//			    //向服务器请求数据
-//			    mapList=MyAPI.getAllDatas();
-//			    setListAdapter(mapList);
-//			    //更新完列表数据，则关闭对话框
-//			    progressDialog.dismiss();
-//			    }}).start();
+
 
 		// 步骤4-3：设置一个全新的类型Type
 		Type ListClients = new TypeToken<ArrayList<Client>>() {
@@ -128,13 +115,12 @@ public class ListReslutActivity extends Activity {
 				Map<String, Object> item = new HashMap<String, Object>();
 				item.put("mid", client.getId());
 				item.put("name", client.getName());
-				item.put("date", new SimpleDateFormat("yyyy-MM-dd hh:mm",
-						Locale.CHINA).format(client.getDate()));
+				item.put("date", client.getDate());
 				// 步骤4-7：将创建好的选项对象添加到集合中
 
 				namelist = client.getName();
-				datelist = new SimpleDateFormat("yyyy-MM-dd hh:mm",
-						Locale.CHINA).format(client.getDate());
+				phonelist = client.getPhone();
+				datelist = client.getDate();
 				belonglist = client.getTeambelong();
 				beizhulist = client.getRemark();
 				guwenlist = client.getCounselor();
@@ -143,6 +129,7 @@ public class ListReslutActivity extends Activity {
 
 				lst.add(item);
 			}
+	
 		} else {
 			Intent intentback = new Intent();
 			intentback.setClass(ListReslutActivity.this,
