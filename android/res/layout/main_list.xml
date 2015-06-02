@@ -7,9 +7,37 @@
     <ListView
         android:id="@+id/listmain"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
     </ListView>
-        
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp">
+
+        <!-- 添加一个编辑文本框 -->
+
+        <EditText
+            android:id="@+id/printname"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:hint="请输入文件名"
+            android:inputType="date"
+            android:paddingLeft="8dp"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnprint"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_weight="2"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_login_bg"
+            android:text="打印"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </TableRow>
 
 </LinearLayout>

@@ -1,5 +1,9 @@
 package edu.nankai.VisitRecord.activity;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -18,11 +32,14 @@ import com.google.gson.reflect.TypeToken;
 
 import edu.nankai.VisitRecord.internet.WebAccessUtils;
 import edu.nankai.VisitRecord.po.Client;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -32,10 +49,15 @@ public class ListReslutActivity extends Activity {
 	// 步骤1：声明集合对象以及ListView组件对象
 	private List<Map<String, ?>> lstData;
 	private ListView lstMessages;
+	private EditText nameprint;
+	private Button btnprint;
+
 	private String namelist, phonelist, datelist, belonglist, guwenlist,
 			knowlist, beizhulist;
-//	private Handler handler = new Handler();
-//    private ProgressDialog progressDialog = null;
+	List<Client> lstClient;
+
+	// private Handler handler = new Handler();
+	// private ProgressDialog progressDialog = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +67,13 @@ public class ListReslutActivity extends Activity {
 		this.setContentView(R.layout.main_list);
 		// 步骤2：实例化列表视图组件
 		this.lstMessages = (ListView) this.findViewById(R.id.listmain);
+
+		this.nameprint = (EditText) this.findViewById(R.id.printname);
+
+		this.btnprint = (Button) this.findViewById(R.id.btnprint);
+
+		// 步骤7：组件绑定监听器
+		this.btnprint.setOnClickListener(new ViewOcl());
 		// 步骤3：获取自定义列表组件中的数据
 		this.lstData = fetchData();
 		// 步骤4：将自定义的布局与获取到的列表数据进行绑定
@@ -95,11 +124,9 @@ public class ListReslutActivity extends Activity {
 			response = WebAccessUtils.httpRequest("SelectByDateServlet",
 					lstNameValuePairs);
 		}
-		
+
 		Gson gsonget = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm")
 				.create();
-		
-
 
 		// 步骤4-3：设置一个全新的类型Type
 		Type ListClients = new TypeToken<ArrayList<Client>>() {
@@ -107,7 +134,7 @@ public class ListReslutActivity extends Activity {
 
 		// System.out.println(intent.getStringExtra(response));
 		// 步骤4-5：解析JSon数据
-		List<Client> lstClient = gsonget.fromJson(response, ListClients);
+		lstClient = gsonget.fromJson(response, ListClients);
 
 		// 步骤4-6：使用循环遍历集合对象
 		if (lstClient != null) {
@@ -129,7 +156,7 @@ public class ListReslutActivity extends Activity {
 
 				lst.add(item);
 			}
-	
+
 		} else {
 			Intent intentback = new Intent();
 			intentback.setClass(ListReslutActivity.this,
@@ -169,6 +196,195 @@ public class ListReslutActivity extends Activity {
 			startActivity(intent);
 		}
 
+	}
+
+	private class ViewOcl implements View.OnClickListener {
+
+		String filename = nameprint.getText().toString().trim();
+
+		@Override
+		public void onClick(View v) {
+			if (lstClient != null && filename != null) {
+				Workbook readwb = null;
+				WritableCellFormat cellFormat = new WritableCellFormat();
+				try {
+					cellFormat.setAlignment(jxl.format.Alignment.CENTRE);
+				} catch (WriteException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				String fileturename = "/" + filename + ".xls";
+				try {
+					WritableWorkbook book = Workbook.createWorkbook(new File(
+							android.os.Environment
+									.getExternalStorageDirectory()
+									.getAbsolutePath()
+									+ fileturename));
+					// 生成名为“第一页”的工作表，参数0表示这是第一页
+					WritableSheet sheet = book.createSheet(filename, 0);
+					// 在Label对象的构造子中指名单元格位置是第一列第一行(0,0)
+					// sheet.setRowView(0, 20);
+					// 以及单元格内容为test
+					sheet.setColumnView(0, 5);
+					sheet.setColumnView(1, 20);
+					sheet.setColumnView(2, 10);
+					sheet.setColumnView(3, 20);
+
+					sheet.setColumnView(4, 30);
+					sheet.setColumnView(5, 30);
+					sheet.setColumnView(6, 20);
+
+					sheet.setColumnView(7, 20);
+					sheet.setColumnView(8, 20);
+
+					sheet.setColumnView(9, 30);
+
+					Label label = new Label(0, 0, "序号");
+					Label labe2 = new Label(1, 0, "日期");
+					Label labe3 = new Label(2, 0, "姓名");
+					Label labe4 = new Label(3, 0, "联系电话");
+
+					Label labe5 = new Label(4, 0, "拓客组归属");
+
+					Label labe6 = new Label(5, 0, "获知途径");
+					Label labe7 = new Label(6, 0, "置业顾问");
+
+					Label labe8 = new Label(7, 0, "认筹日期");
+					Label labe9 = new Label(8, 0, "认购日期");
+
+					Label labe10 = new Label(9, 0, "备注");
+
+					label.setCellFormat(cellFormat);
+					labe2.setCellFormat(cellFormat);
+					labe3.setCellFormat(cellFormat);
+					labe4.setCellFormat(cellFormat);
+
+					labe5.setCellFormat(cellFormat);
+					labe6.setCellFormat(cellFormat);
+					labe7.setCellFormat(cellFormat);
+					labe8.setCellFormat(cellFormat);
+					labe9.setCellFormat(cellFormat);
+					labe10.setCellFormat(cellFormat);
+
+					// 将定义好的单元格添加到工作表中
+					sheet.addCell(label);
+					sheet.addCell(labe2);
+					sheet.addCell(labe3);
+					sheet.addCell(labe4);
+					sheet.addCell(labe5);
+					sheet.addCell(labe6);
+					sheet.addCell(labe7);
+					sheet.addCell(labe8);
+					sheet.addCell(labe9);
+					sheet.addCell(labe10);
+
+					// Toast.makeText(getApplicationContext(), user.toString(),
+					// Toast.LENGTH_LONG).show();
+
+					book.write();
+					book.close();
+				} catch (RowsExceededException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (WriteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				// 添加操作
+				for (Client client : lstClient) {
+					try {
+						readwb = Workbook.getWorkbook(new FileInputStream(
+								android.os.Environment
+										.getExternalStorageDirectory()
+										.getAbsolutePath()
+										+ fileturename));
+					} catch (BiffException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					Sheet readsheet = readwb.getSheet(0);
+
+					int j = readsheet.getRows();
+					try {
+
+						jxl.write.WritableWorkbook wwb = Workbook
+								.createWorkbook(new File(android.os.Environment
+										.getExternalStorageDirectory()
+										.getAbsolutePath()
+										+ fileturename), readwb);
+
+						jxl.write.WritableSheet ws = wwb.getSheet(0);
+
+						jxl.write.Label addlabel = new jxl.write.Label(0, j,
+								Integer.toString(j));
+						jxl.write.Label addlabel2 = new jxl.write.Label(1, j,
+								client.getDate());
+						jxl.write.Label addlabel3 = new jxl.write.Label(2, j,
+								client.getName());
+						jxl.write.Label addlabel4 = new jxl.write.Label(3, j,
+								client.getPhone());
+						jxl.write.Label addlabel5 = new jxl.write.Label(4, j,
+								client.getTeambelong());
+						jxl.write.Label addlabel6 = new jxl.write.Label(5, j,
+								client.getKownway());
+						jxl.write.Label addlabel7 = new jxl.write.Label(6, j,
+								client.getCounselor());
+						jxl.write.Label addlabel8 = new jxl.write.Label(9, j,
+								client.getRemark());
+
+						addlabel.setCellFormat(cellFormat);
+						addlabel3.setCellFormat(cellFormat);
+						// 将定义好的单元格添加到工作表中
+						ws.addCell(addlabel);
+						ws.addCell(addlabel2);
+						ws.addCell(addlabel3);
+						ws.addCell(addlabel4);
+						ws.addCell(addlabel5);
+						ws.addCell(addlabel6);
+						ws.addCell(addlabel7);
+						ws.addCell(addlabel8);
+
+						wwb.write();
+						wwb.close();
+						readwb.close();
+					} catch (RowsExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IndexOutOfBoundsException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (WriteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} else if (filename != null && lstClient == null) {
+				Toast.makeText(getApplicationContext(), "记录为空",
+						Toast.LENGTH_LONG).show();
+
+			} else if (filename == null && lstClient != null) {
+				Toast.makeText(getApplicationContext(), "请先输入文件名",
+						Toast.LENGTH_LONG).show();
+
+			}
+
+		}
 	}
 
 	// // 步骤7：自定义列表选项长点击事件处理

@@ -30,8 +30,7 @@ import android.widget.EditText;
 public class SelectMainActivity extends Activity {
 
 	private EditText selectname, selectdate;
-	private Button selectByname, selectBydate, selectBytoday, selectDay,
-			btnkdxf;
+	private Button selectByname, selectBydate, selectBytoday, btnkdxf;
 	DatePickerDialog datePickerDialog = null;
 	static final int SHOW_DATE_PICKER_DIALOG = 1;
 	private RecognizerDialog rd;
@@ -52,28 +51,23 @@ public class SelectMainActivity extends Activity {
 
 		this.selectBydate = (Button) this.findViewById(R.id.btnSelectBydate);
 		this.selectBytoday = (Button) this.findViewById(R.id.btnselectToday);
-		this.selectDay = (Button) this.findViewById(R.id.btnselectDay);
 		this.btnkdxf = (Button) this.findViewById(R.id.btnkdxf);
 
 		// 步骤7：组件绑定监听器
 		this.selectBydate.setOnClickListener(new ViewOcl());
 		this.selectByname.setOnClickListener(new ViewOcl());
 		this.selectBytoday.setOnClickListener(new ViewOcl());
-		this.selectDay.setOnClickListener(new ViewOcl());
 		this.btnkdxf.setOnClickListener(new ViewOcl());
-//		selectname.setOnTouchListener(new OnTouchListener() {
-//
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// TODO Auto-generated method stub
-//				selectname.setSelection(selectname.getText().toString()
-//						.length());
-//				// Editable ea = content.getText();
-//				// Selection.setSelection(ea,ea.length());
-//
-//				return false;
-//			}
-//
-//		});
+		selectdate.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				// TODO Auto-generated method stub
+				showDialog(SHOW_DATE_PICKER_DIALOG);
+				return false;
+			}
+
+		});
 	}
 
 	private class ViewOcl implements View.OnClickListener {
@@ -122,9 +116,9 @@ public class SelectMainActivity extends Activity {
 				// finish();
 
 				break;
-			case R.id.btnselectDay:
-				showDialog(SHOW_DATE_PICKER_DIALOG);
-				break;
+			// case R.id.btnselectDay:
+			// showDialog(SHOW_DATE_PICKER_DIALOG);
+			// break;
 			case R.id.btnselectToday:
 
 				Date now = new Date();
@@ -152,7 +146,7 @@ public class SelectMainActivity extends Activity {
 		 * params 引擎参数配置列表
 		 * 附加参数列表，每项中间以逗号分隔，如在地图搜索时可指定搜索区域：“area=安徽省合肥市”，无附加参数传null
 		 */
-		rd.setEngine("vsearch", null, null);
+		rd.setEngine("sms", null, null);
 
 		// //设置采样频率，默认是16k，android手机一般只支持8k、16k.为了更好的识别，直接弄成16k即可。
 		rd.setSampleRate(RATE.rate16k);
@@ -196,7 +190,7 @@ public class SelectMainActivity extends Activity {
 			} else if (monthOfYear > 9 && dayOfMonth < 10) {
 				selectdate.setText(year + "-" + (monthOfYear + 1) + "-0"
 						+ dayOfMonth);
-			} else if (monthOfYear > 9 && dayOfMonth < 10) {
+			} else if (monthOfYear < 9 && dayOfMonth < 10) {
 				selectdate.setText(year + "-0" + (monthOfYear + 1) + "-0"
 						+ dayOfMonth);
 			}

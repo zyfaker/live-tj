@@ -4,110 +4,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp" >
-    
+
     <!-- 添加一个TextView文本组件标签 -->
-    <TextView 
+
+    <TextView
         android:id="@+id/txtTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_title"
-        android:textSize="30sp"
-        android:textColor="#bb8736"
+        android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
-        android:layout_marginTop="30dp"/>
-    
+        android:text="@string/add_title"
+        android:textColor="#bb8736"
+        android:textSize="30sp" />
+
     <!-- 添加一个LinearLyou布局组件 -->
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:padding="10dp"
-        android:background="@drawable/table_style" >
-        
+        android:background="@drawable/table_style"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
         <!-- 上半部分：TableLayout完成我们的标签和编辑文本框 -->
-       <TableLayout 
+
+        <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:collapseColumns="2"
-            android:stretchColumns="1">
-            
+            android:stretchColumns="1" >
+
             <!-- 第一行组件标签 -->
-            <TableRow 
+
+            <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-                
+                android:layout_height="wrap_content" >
+
                 <!-- 添加文本标签 -->
-                <TextView 
+
+                <TextView
                     android:id="@+id/lblAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="姓名："
                     android:textColor="#E616FA"
                     android:textSize="20sp" />
-                
+
                 <!-- 添加一个编辑文本框 -->
-                <EditText 
-                    android:id="@+id/userName"
+
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:inputType="text"
-                    android:textSize="15sp"
-                    android:hint="请输入您的全名"
-                    android:background="@drawable/txt_style"
-                    android:paddingLeft="8dp"/>
-                
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/userName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/txt_style"
+                        android:hint="请输入您的全名"
+                        android:layout_weight="1"
+                        android:inputType="text"
+                        android:paddingLeft="8dp"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/btnkdxflogin"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/device2_access_mic"/>
+                </LinearLayout>
             </TableRow>
-            <TableRow 
+
+            <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-                
+                android:layout_marginTop="15dp" >
+
                 <!-- 添加文本标签 -->
-                <TextView 
+
+                <TextView
                     android:id="@+id/lblPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="电话："
                     android:textColor="#E616FA"
                     android:textSize="20sp" />
-                
+
                 <!-- 添加一个编辑文本框 -->
-                <EditText 
+
+                <EditText
                     android:id="@+id/userPhone"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:inputType="phone"
-                    android:textSize="15sp"
-                    android:hint="请输入您的电话号码"
                     android:background="@drawable/txt_style"
-                    android:paddingLeft="8dp"/>
-                
+                    android:hint="请输入您的电话号码"
+                    android:inputType="phone"
+                    android:paddingLeft="8dp"
+                    android:textSize="15sp" />
             </TableRow>
-
         </TableLayout>
-        
+
         <!-- 下半部分：LinearLayout实现按钮组件的添加 -->
-        <LinearLayout 
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
-            
-            
-            <Button 
+            android:layout_marginTop="50dp" >
+
+            <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_login_bg"
                 android:text="填写完成"
                 android:textColor="#FFFFFF"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/btn_login_bg"/>
-            
+                android:textSize="15sp" />
         </LinearLayout>
-        
-        
-        
     </LinearLayout>
+
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package edu.nankai.VisitRecord.activity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -9,11 +10,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +24,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.chinasofti.diary.activity.R;
+import com.iflytek.speech.RecognizerResult;
+import com.iflytek.speech.SpeechError;
+import com.iflytek.speech.SpeechConfig.RATE;
+import com.iflytek.ui.RecognizerDialog;
+import com.iflytek.ui.RecognizerDialogListener;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -40,7 +48,10 @@ public class LoginActivity extends Activity {
 
 	// 步骤4：声明该页面中的交互类组件
 	private EditText userName, userPhone;
-	private Button btnLogin;
+	private Button btnLogin, btnkdxflogin;
+	
+	private RecognizerDialog rd;
+	protected static final String TAG = "ThirdActivity";
 
 	// 步骤2：重写父类中的一个方法OnCreate() Ctrl+Shift+S,V
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -48,6 +59,8 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		
+		rd = new RecognizerDialog(this, "appid=50e1b967");
 		// 由于访问互联网，因此将网络访问放入到子线程中进行
 		super.onCreate(savedInstanceState);
 		// 扩展：隐藏该窗体的标题栏
@@ -58,8 +71,59 @@ public class LoginActivity extends Activity {
 		this.userName = (EditText) this.findViewById(R.id.userName);
 		this.userPhone = (EditText) this.findViewById(R.id.userPhone);
 		this.btnLogin = (Button) this.findViewById(R.id.btnLogin);
+		this.btnkdxflogin = (Button) this.findViewById(R.id.btnkdxflogin);
 		// 步骤7：组件绑定监听器
 		this.btnLogin.setOnClickListener(new ViewOcl());
+		this.btnkdxflogin.setOnClickListener(new ViewOcl2());
+	}
+
+	private class ViewOcl2 implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			showReconigizerDialog();
+			
+		}
+	}
+	private void showReconigizerDialog() {
+		// setEngine(String engine,String params,String grammar);
+		/**
+		 * * 识别引擎选择，目前支持以下五种 “sms”：普通文本转写 “poi”：地名搜索 “vsearch”：热词搜索
+		 * “vsearch”：热词搜索 “video”：视频音乐搜索 “asr”：命令词识别
+		 * 
+		 * params 引擎参数配置列表
+		 * 附加参数列表，每项中间以逗号分隔，如在地图搜索时可指定搜索区域：“area=安徽省合肥市”，无附加参数传null
+		 */
+		rd.setEngine("sms", null, null);
+
+		// //设置采样频率，默认是16k，android手机一般只支持8k、16k.为了更好的识别，直接弄成16k即可。
+		rd.setSampleRate(RATE.rate16k);
+
+		final StringBuilder sb = new StringBuilder();
+		Log.i(TAG, "识别准备开始.............");
+
+		rd.setListener(new RecognizerDialogListener() {
+			public void onResults(ArrayList<RecognizerResult> result,
+					boolean isLast) {
+				for (RecognizerResult recognizerResult : result) {
+					sb.append(recognizerResult.text);
+					// System.out.printf(recognizerResult.text);
+					Log.i(TAG, "识别一条结果为···" + recognizerResult.text);
+				}
+			}
+
+			public void onEnd(SpeechError error) {
+				Log.i(TAG, "识别完成.............");
+				userName.setText(sb.toString());
+				// Toast.makeText(getApplicationContext(), sb.toString(),
+				// Toast.LENGTH_LONG).show();
+				Log.i(TAG, "识别完成:" + userName.getText().toString());
+			}
+		});
+
+		userName.setText(""); // 先设置为空，等识别完成后设置内容
+
+		rd.show();
+
 	}
 
 	// 步骤6：创建一个自定义的内部类监听器Linstener
@@ -192,10 +256,10 @@ public class LoginActivity extends Activity {
 				for (; i < j;) {
 					String userphone = userPhone.getText().toString().trim();
 
-					//System.out.println(j + cells[i].getContents());
+					// System.out.println(j + cells[i].getContents());
 
 					String cellphone = cells[i].getContents();
-	
+
 					if (userphone.equals(cellphone)) {
 						// System.out.println(userPhone.getText().toString().trim());
 						// System.out.println(phone.equals(cells[i].getContents()));
@@ -213,11 +277,12 @@ public class LoginActivity extends Activity {
 				intent.setClass(LoginActivity.this, AddActivity.class);
 				intent.putExtra("account", account);
 				intent.putExtra("phone", phone);
-				intent.putExtra("date", new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm").format(now));
-//				Toast.makeText(getApplicationContext(),account+phone+new SimpleDateFormat(
-//						"yyyy-MM-dd hh:mm:").format(now),
-//						Toast.LENGTH_LONG).show();
+				intent.putExtra("date",
+						new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now));
+				// Toast.makeText(getApplicationContext(),account+phone+new
+				// SimpleDateFormat(
+				// "yyyy-MM-dd hh:mm:").format(now),
+				// Toast.LENGTH_LONG).show();
 				startActivity(intent);
 				finish();
 			} else if (phone.length() == 0 || account.length() == 0) {
