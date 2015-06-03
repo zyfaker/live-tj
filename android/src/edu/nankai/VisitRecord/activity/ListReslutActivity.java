@@ -37,6 +37,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +51,7 @@ public class ListReslutActivity extends Activity {
 	private List<Map<String, ?>> lstData;
 	private ListView lstMessages;
 	private EditText nameprint;
-	private Button btnprint;
+	private Button btnprint,btnback;
 
 	private String namelist, phonelist, datelist, belonglist, guwenlist,
 			knowlist, beizhulist;
@@ -71,9 +72,24 @@ public class ListReslutActivity extends Activity {
 		this.nameprint = (EditText) this.findViewById(R.id.printname);
 
 		this.btnprint = (Button) this.findViewById(R.id.btnprint);
+		this.btnback = (Button) this.findViewById(R.id.btnbacksearch);
+		
 
 		// 步骤7：组件绑定监听器
 		this.btnprint.setOnClickListener(new ViewOcl());
+		
+		this.btnback.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intentback = new Intent();
+				intentback.setClass(ListReslutActivity.this,
+						SelectMainActivity.class);
+				startActivity(intentback);
+			}
+
+
+		});
 		// 步骤3：获取自定义列表组件中的数据
 		this.lstData = fetchData();
 		// 步骤4：将自定义的布局与获取到的列表数据进行绑定
@@ -137,7 +153,7 @@ public class ListReslutActivity extends Activity {
 		lstClient = gsonget.fromJson(response, ListClients);
 
 		// 步骤4-6：使用循环遍历集合对象
-		if (lstClient != null) {
+		if (lstClient.size() > 0) {
 			for (Client client : lstClient) {
 				Map<String, Object> item = new HashMap<String, Object>();
 				item.put("mid", client.getId());
@@ -155,17 +171,21 @@ public class ListReslutActivity extends Activity {
 				phonelist = client.getPhone();
 
 				lst.add(item);
+//			if(namelist==null){
+//				Intent intentback = new Intent();
+//				intentback.setClass(ListReslutActivity.this,
+//						SelectMainActivity.class);
+//				Toast.makeText(getApplicationContext(), "没有符合的记录",
+//						Toast.LENGTH_LONG).show();
+//				startActivity(intent);
+//				
+			}
+			}else {
+				Map<String, Object> item = new HashMap<String, Object>();
+				item.put("name", "没有符合的记录");
+				lst.add(item);
 			}
 
-		} else {
-			Intent intentback = new Intent();
-			intentback.setClass(ListReslutActivity.this,
-					SelectMainActivity.class);
-			Toast.makeText(getApplicationContext(), "没有符合的记录",
-					Toast.LENGTH_LONG).show();
-			startActivity(intent);
-
-		}
 		return lst;
 	}
 
@@ -199,11 +219,10 @@ public class ListReslutActivity extends Activity {
 	}
 
 	private class ViewOcl implements View.OnClickListener {
-
-		String filename = nameprint.getText().toString().trim();
-
 		@Override
 		public void onClick(View v) {
+			
+			String filename = nameprint.getText().toString().trim();
 			if (lstClient != null && filename != null) {
 				Workbook readwb = null;
 				WritableCellFormat cellFormat = new WritableCellFormat();
@@ -214,6 +233,7 @@ public class ListReslutActivity extends Activity {
 					e2.printStackTrace();
 				}
 				String fileturename = "/" + filename + ".xls";
+				System.out.println(fileturename+"----------------");
 				try {
 					WritableWorkbook book = Workbook.createWorkbook(new File(
 							android.os.Environment
@@ -374,7 +394,7 @@ public class ListReslutActivity extends Activity {
 						e.printStackTrace();
 					}
 				}
-			} else if (filename != null && lstClient == null) {
+			} else if (lstClient == null) {
 				Toast.makeText(getApplicationContext(), "记录为空",
 						Toast.LENGTH_LONG).show();
 

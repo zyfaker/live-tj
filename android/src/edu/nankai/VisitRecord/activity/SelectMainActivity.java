@@ -81,6 +81,7 @@ public class SelectMainActivity extends Activity {
 
 				showReconigizerDialog();
 
+
 				break;
 			case R.id.btnSelectByname:
 
@@ -166,7 +167,7 @@ public class SelectMainActivity extends Activity {
 
 			public void onEnd(SpeechError error) {
 				Log.i(TAG, "识别完成.............");
-				selectname.setText(sb.toString());
+				selectname.setText(sb.toString().replace("。", "").replace("？", "").replace("！", "").replace("，", ""));
 				// Toast.makeText(getApplicationContext(), sb.toString(),
 				// Toast.LENGTH_LONG).show();
 				Log.i(TAG, "识别完成:" + selectname.getText().toString());
